@@ -1,5 +1,5 @@
-# Project0
+# <h1>Project 0</h1>
 
 # John's Branch
 
-Hey Thanks for checking out my Branch of the Repo TEAM PYROHM !
+Hey Thanks for checking out my <strong>Branch</strong> of the Repo TEAM PYROHM !
