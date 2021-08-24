@@ -1,0 +1,156 @@
+﻿SDLC
+
+	What are the 8 Steps in SDLC?
+		Requirements
+		Analysis
+		Design
+		Development
+		Testing
+		User Acceptance Testing
+		Release
+		Maintenance
+	What Methodologies do we have for SDLC?
+		Big Bang
+		Waterfall
+		Agile
+
+	What Frameworks do we have for Agile, besides eXtreme Programming?
+		Scrum
+		Kanban
+		Scrumban
+	What are some pros and cons for the above Frameworks?
+		Scrum
+			Pros:
+				problem identification
+				standups allow for feedback and adjustments
+			Cons:
+				unclear limits; uncertainty
+				requires whole team to commit
+				lacks final deadlines
+
+		Kanban
+			Pros:
+				persistent visual board
+				allows specialists
+				can be added to
+			Cons:
+				can be overcomplicated
+				
+	What are story points and what are they used for?
+		A story point is a user's goal and it is used by the developer to determine how to implement a method to accomplish that goal
+		Story points are also used as a unit to express the completion of a product.
+
+SF Architecture & Data Modeling
+
+
+	What is Salesforce?
+		CRM, PAAS, SAAS
+
+	Describe the architecture Salesforce has.
+		hosted on cloud and is multitenant
+		it is shared by clients and therefore requires limitations on each user
+
+	What is an ERD?
+		entity relationship diagram that describes how each object relates to another in terms of one to many or many to many
+
+	Name 4 standard objects and their typical use
+		events: contains time/location/contact information of an event whether it is one time or repeating.
+		orders: stores transaction details
+		contact: stores contact information for a person
+		products: describes product based on its characteristics as well as relationship with other products
+
+	Where is the case-sensitive, 15 digit ID found? What is the difference between the 15 digit and 18 digit ID
+		It's in the ID field. The 15 digit code is for internal use. When the ID is used externally, it is in 18 digit format.
+		
+	Name 9 field data types.
+		relationships
+		currency
+		text
+		date
+		geolocation
+		info
+		format
+		phone
+		email
+
+	What can a picklist field be dependent on?
+		can be dependent on any standard/custom picklist
+
+	What is the Schema Builder and what are some of the limitations it?
+		It can show relationships between objects much like an ERD but also includes several other unnecessary details as well as some limitations on fields such as geolocation
+
+Relationships and Intro to Security
+
+
+	What kinds of relationships can be modeled in Salesforce?
+		one to one
+		one to many
+		many or many
+
+	What kinds of relationships exist in Salesforce using Relationship Fields?
+		lookup
+		master-detail
+		external lookup
+
+	What relationship is tightly coupled, and what are some limitations to it?
+		master-detail
+		detail can only have up to two masters
+		master can only have up to three details
+		some standard objects can't be selected as master and some can't be detail
+	What relationship is loosely coupled and what are some limitations to it?
+		look-up
+		they don't have the extra features that come with master-detail
+	How is org level security controlled?
+		User account settings
+
+	What levels of access can be set for object level security?
+		create
+		read
+		edit/update
+		delete
+	What is a permission set and when would you use it?
+		settings that is used to extend access to profiles
+
+Security and UI Customization
+
+	What does OWD stand for and what does it set?
+		Organization wide default provides settings to restrict permissions for everyone in the organization. It is the most restrictive and affects everyone BESIDES the owner(user that created the record).
+
+	What is the role hierarchy?
+		Roles can have child roles that answer directly to them. This hierarchy also has certain settings that exploit this relationship such as one that allows the parent to inherit access to the same things the child has access to.
+
+	When should you use a sharing rule?
+		Sharings rules are used to allow specific users access to access something they do not so long as the user that is sharing does have access to. The level of access that can be shared is determined in this setting.
+
+	How is a queue different than a public group?
+		They are both ways of sharing but queue offers more control on who has access as it is done by the individual while public group gives everyone in the organization access
+	What tabs can be placed in an app?
+		objects and visual force(still don't know what that is though)
+
+	Where can the placement and visibility of fields and related lists be controlled for any object?
+		Object Manager>Object>Fields & Relationships>Field>Set Field-Level Security
+
+	What is a record type?
+		It's a setting that allows different profile types to see different fields and data from the same record
+
+	What does the Lightning App Builder allow you to make?
+		It allows the user to create a special page that has its own tab for an app
+
+	What are dynamic forms?
+		a better version of page layout that is more user friendly along with other extra features.
+
+	What are the different types of list views?
+		table
+		kanban
+		split
+
+	What are Quick Actions and what can they do?
+		They're macros that can be used to quickly create objects, send emails, etc
+
+	What are the 2 types of quick actions and the difference between them?
+		Global: they are not context aware and allows records to be created anywhere so long as it is somewhere supported
+		Object: they are context aware and can only add to detail page
+
+	What action is context-aware?
+		Object specific
+		
