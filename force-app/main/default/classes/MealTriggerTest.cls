@@ -41,7 +41,7 @@ private class MealTriggerTest {
         
         List<Meal__c> mealsSuccess = new List<Meal__c>();
         
-        for(Integer i = 0; i < 99; i++) {
+        for(Integer i = 0; i < 200; i++) {
             mealsSuccess.add(new Meal__c(Name = 'meal success '+i, Food__c = aFood1.Id, Food_Recipe_Amount__c = 10));
         }
         
@@ -54,7 +54,7 @@ private class MealTriggerTest {
             }
         }
         
-        System.assertEquals(99, numSuccess);
+        System.assertEquals(200, numSuccess);
         
         Test.stopTest();
     }
@@ -66,7 +66,7 @@ private class MealTriggerTest {
         
         List<Meal__c> mealsFail = new List<Meal__c>();
         
-        for(Integer i = 0; i < 99; i++) {
+        for(Integer i = 0; i < 200; i++) {
             mealsFail.add(new Meal__c(Name = 'meal fail ' +i, Food__c = aFood2.Id, Food_Recipe_Amount__c = 10));
         }
         
@@ -79,7 +79,7 @@ private class MealTriggerTest {
             }
         }
         
-        System.assertEquals(99, numFail);
+        System.assertEquals(200, numFail);
         
         Test.stopTest();
     }
@@ -93,10 +93,10 @@ private class MealTriggerTest {
         List<Meal__c> mealsSuccess = new List<Meal__c>();
         List<Meal__c> mealsFail = new List<Meal__c>();
         
-        for(Integer i = 0; i < 49; i++) {
+        for(Integer i = 0; i < 100; i++) {
             mealsSuccess.add(new Meal__c(Name = 'meal success '+i, Food__c = aFood1.Id, Food_Recipe_Amount__c = 10));
         }
-        for(Integer i = 0; i < 49; i++) {
+        for(Integer i = 0; i < 100; i++) {
             mealsFail.add(new Meal__c(Name = 'meal fail ' +i, Food__c = aFood2.Id, Food_Recipe_Amount__c = 10));
         }
         
@@ -116,8 +116,8 @@ private class MealTriggerTest {
             }
         }
         
-        System.assertEquals(49, numSuccess);
-        System.assertEquals(49, numFail);
+        System.assertEquals(100, numSuccess);
+        System.assertEquals(100, numFail);
         
         Test.stopTest();
     }
