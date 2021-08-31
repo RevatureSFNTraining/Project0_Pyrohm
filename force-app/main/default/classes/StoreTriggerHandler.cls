@@ -5,7 +5,7 @@ public with sharing class StoreTriggerHandler {
             for (Store__c newStore : store) {
                 system.debug('new store :' + newStore + ', Old Store : ' + s);
                 if (newStore.Name == s.Name) {
-                    newStore.addError('Same name please change');
+                    newStore.addError(newStore.name + ' is taken please choose a new name');
                 }
             }
         }
