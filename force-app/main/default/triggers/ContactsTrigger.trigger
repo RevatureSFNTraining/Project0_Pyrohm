@@ -4,7 +4,7 @@ trigger ContactsTrigger on Contact (before insert, before update, before delete,
            
         }
         when BEFORE_UPDATE {
-            
+            ContactsTriggerHandler.contactUpdate(Trigger.new);
         }
         when BEFORE_DELETE {
 
