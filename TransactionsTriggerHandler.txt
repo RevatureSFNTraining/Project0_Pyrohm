@@ -1,0 +1,23 @@
+public class TransactionsTriggerHandler {
+    public static list<zzTransaction__c> FullCart(list<zzTransaction__c> nt){
+        //This method is supposed to stop an insert once too many purchases are going to the same person/place
+        list<string> lt= new list<string>{};
+        for(zzTransaction__c t : nt){
+            lt.add(string.valueof(t.email__c));
+        }
+        
+        list<ID> tid = new list<id>{};
+        for(zzTransaction__c t : [SELECT ID FROM zzTransaction__c WHERE email__c IN :lt]){
+            tid.add(t.ID);
+            if(tid.size()>10){
+            	t.addError('too many purchases');
+       	 	}
+        }
+        //to be honest, I wanted to make a trigger that would merge if a transaction going to the same email and 
+        //merchandise perchased were the exact same but I kept bumping into problems with datatypes since I do not
+        //know SOQL well enough. I have no idea what each field gets converted into in apex as the data type described
+        //in the object manager seems to be a flatout lie. It's incredibly frustrating and I have been having a hard time
+        //trying to find what I need to know.
+        return nt;
+    }
+}

@@ -1,0 +1,12 @@
+@isTest
+public class WarehousesTriggerTest {
+	@isTest
+    public static void SinglePositive(){
+        //creates and immediately inserts a record of warehouse that should be editted by the trigger
+        //it currently won't work since salesforce doesn't want me to update a record file that I should have full access to
+        zzWarehouse__c w;
+        w= new zzWarehouse__c(Name='Warehouse A');
+        insert w;
+        system.assertEquals(w.Name, 'A');
+    }
+}

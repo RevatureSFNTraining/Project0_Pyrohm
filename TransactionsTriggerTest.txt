@@ -1,0 +1,22 @@
+@isTest
+public class TransactionsTriggerTest {
+	@isTest
+    public static void SinglePositive(){
+        //test keeps complaining about not setting master id but that wasn't covered in class as far as I remember
+        //otherwise, this test seems to work?
+        zzMerchandise__c m = new zzMerchandise__c();
+        list<zzTransaction__c> lt=new list<zzTransaction__c>{};
+        //create 10 to setup trigger condition
+        for(integer i=0;i<11;i++){
+            lt.add(new zzTransaction__c(email__c='julius.lontok@gmail.com', Merchandise__c=m.id));
+        }
+        insert lt;
+        //add one more to activate trigger
+        Database.SaveResult sr = Database.insert(new zzTransaction__c(email__c='julius.lontok@gmail.com', Merchandise__c=m.id), false);
+        Integer numFailed = 0;
+       	if(!sr.isSuccess()){
+           numFailed = 1;
+        }
+        System.assertEquals(1, numFailed);
+    }
+}

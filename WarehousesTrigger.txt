@@ -1,0 +1,8 @@
+trigger WarehousesTrigger on zzWarehouse__c (after insert) {
+    switch on trigger.operationType{
+        when AFTER_INSERT{
+			//change the name if it contains 'warehouse'
+			WarehousesTriggerHandler.Rename(Trigger.new); 
+        }
+    }
+}

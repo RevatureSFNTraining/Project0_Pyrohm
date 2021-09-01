@@ -1,0 +1,8 @@
+trigger TransactionsTrigger on zzTransaction__c (before insert) {
+    switch on trigger.operationType{
+        when BEFORE_INSERT{
+			//complain if there are already 10 transactions going to the same person
+			TransactionsTriggerHandler.FullCart(Trigger.new);
+        }
+    }
+}

@@ -1,0 +1,20 @@
+public class WarehousesTriggerHandler {
+    public static list<zzWarehouse__c> Rename(list<zzWarehouse__c> nw){
+        //This method is supposed to remove "Warehouse" should it exist in the name and just contain whatever comes after
+        //This will require fine tuning to ensure name isn't empty
+        //For now, I just want to get to work
+        list<string> lid= new list<string>{};
+        for(zzWarehouse__c w : nw){
+            w.Name=w.Name.substringAfter('Warehouse ');
+            system.debug(w.Name);
+        }
+        //I still have no idea why it claims it is read only when I can manually edit it, it would have worked if I created a text field and used that instead
+        //I have seen examples of name being changed, I don't know why it won't let me edit it here
+        //in fact, I've tried many lines of code(literally copying everything to the letter) and apex just doesn't seem to want to agree
+        //most of the datatypes that functions are willing to accept are a complete mystery to me and I can't find any answers
+        //I don't even know the actual data types of the fields in my custom objects
+        //I was under the impression that a lot of them would be primitive types but apex seems to disagree and then leave me with no clues except "unexpected token"
+        update nw;
+        return nw;
+    }
+}
