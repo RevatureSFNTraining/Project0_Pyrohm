@@ -1,0 +1,8 @@
+trigger GaragesTrigger on zzGarage__c (before insert) {
+    switch on trigger.operationType{
+        when BEFORE_INSERT{
+			//complain if theres a garage nearby already
+			GaragesTriggerHandler.Proximity(Trigger.new);
+        }
+    }
+}

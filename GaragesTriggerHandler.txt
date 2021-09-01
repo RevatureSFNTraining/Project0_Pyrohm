@@ -1,0 +1,23 @@
+public class GaragesTriggerHandler {
+    public static list<zzGarage__c> Proximity(list<zzGarage__c> ng){
+        for(zzGarage__c g : ng){
+            location loc = g.Location__c;
+            decimal lat=loc.latitude;
+            decimal lon=loc.longitude;
+        }
+        //I still don't understand why it DISTANCE() complains about its arguments
+        for(zzGarage__c g : [
+            SELECT id, Location__c
+            FROM zzGarage__c
+            //WHERE DISTANCE(g.Location__c, GEOLOCATION(lat,lon))<1
+            
+            //not even this one works, I don't understand
+            //WHERE DISTANCE(g.Location__c, GEOLOCATION(0,0))<1
+        ]){
+            //g.addError('There is a garage there already');
+            system.debug(g.Location__c);
+        }
+        
+        return ng;
+    }
+}

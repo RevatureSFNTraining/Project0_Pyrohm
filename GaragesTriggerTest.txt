@@ -1,0 +1,26 @@
+@isTest
+public class GaragesTriggerTest {
+	@isTest
+    public static void SinglePositive(){
+        //create something that will be there already
+       	zzGarage__c g1=new zzGarage__c();
+        g1.Location__latitude__s=0;
+        g1.Location__longitude__s=0;
+        insert g1;
+        
+        //try to add something literally right ontop of it
+        zzGarage__c g2=new zzGarage__c();
+        g2.Location__latitude__s=0;
+        g2.Location__longitude__s=0;
+        //obviously, it won't work because the handler also doesn't work
+        //progress on test is halted until I can figure out why DISTANCE() won't work like it does in every single example I find online
+        Database.SaveResult sr = Database.insert(g2, false);
+        integer numFailed = 0;
+       	if(!sr.isSuccess()){
+           numFailed = 1;
+        }
+        System.assertEquals(1, numFailed);
+        
+        //I did everything I could. I am unable to create a meaningful trigger that isn't already possible to do declatively with the current knowledge that I have available to me
+    }
+}
