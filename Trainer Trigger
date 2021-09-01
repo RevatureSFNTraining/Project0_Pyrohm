@@ -1,0 +1,16 @@
+trigger TrainerTrigger on Trainer__c (before delete, before insert, before update, 
+                                    after delete, after insert, after update) {
+    
+   if (Trigger.isBefore) {
+    if (Trigger.isDelete) {
+
+        // Trigger that stops you from deleting a record
+        for (Trainer__c a : Trigger.old) {
+            if (a.name != 'Delete') {
+                a.addError('This record cannot be deleted!');
+            } 
+        }
+    } 
+    }
+    
+}
