@@ -11,7 +11,7 @@ public class SendEmail {
         String[] toAddresses = new String[] {userEmail[0].email};
         mail.setToAddresses(toAddresses);
         mail.setSubject('Delivery Cancelled!');
-        mail.setPlainTextBody('We are emailing you to inform you the delivery has been cancelled, thanks.');
+        mail.setPlainTextBody('We are emailing you to inform you the delivery' + d[0].id + 'has been cancelled, thanks.');
         
         Messaging.SendEmailResult[] results = Messaging.sendEmail(
                                      new Messaging.SingleEmailMessage[] { mail });
