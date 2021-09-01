@@ -1,0 +1,9 @@
+trigger LocationTrigger on Location__c (before delete, before insert, before update, 
+                                    after delete, after insert, after update) {
+//Trigger that stops you from adding a boxing gym outside of cincinnati
+        for (Location__c c : Trigger.old) {
+            if (c.City__c != 'Cincinnati') {
+                c.addError('There are no boxing gyms in this region!');
+            } 
+        }
+    }
