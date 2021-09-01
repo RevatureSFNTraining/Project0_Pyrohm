@@ -1,0 +1,9 @@
+public with sharing class ContactTriggerHandler {
+    public static void preventContactDeletion() {
+        for(Contact con : (List<Contact>) Trigger.old) {
+			if(con.accountId == null) {
+				con.addError('You cannot delete this account. Only those authorized can delete the account!');
+			}
+		}
+    }
+}

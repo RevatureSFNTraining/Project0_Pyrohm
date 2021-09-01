@@ -1,0 +1,13 @@
+public with sharing class EmployeeTriggerHandler {
+    public static void setEmployeeEmail() {
+        List<Employee__c> employeeList = [SELECT Name FROM Employee__c WHERE Email__c = ''];
+        for(Employee__c emp : employeeList) {
+            emp.Email__c = 'Employee' + emp.Id + '@banking.org'; 
+        }
+        update employeeList;
+        
+        /*for(Employee__c e : employeeList) {
+            System.debug(e.Email__c);
+        }*/
+    }
+}
