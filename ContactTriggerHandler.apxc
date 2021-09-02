@@ -1,0 +1,20 @@
+public class ContactTriggerHandler {
+    public void sendEmails(List<Contact> cList){
+        for(Contact c: cList){
+            Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+            List<String> sendTo = new List<String>();
+            sendTo.add(c.Email);
+            email.setToAddresses(sendTo);
+
+            email.setReplyTo('mfernandez0005@gmail.com');
+            email.setSenderDisplayName('Fast Food Burger');
+
+            email.setSubject('Welcome');
+
+            email.setHTMLBody('yes.');
+            List<Messaging.SingleEmailMessage> sendList = new List<Messaging.SingleEmailMessage>();
+            sendList.add(email);
+            Messaging.sendEmail(sendList);
+        }
+    }
+}

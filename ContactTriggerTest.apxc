@@ -1,0 +1,34 @@
+@isTest
+public class ContactTriggerTest {
+
+     @isTest
+    static void testContactTriggerOnSingleInsertPass(){
+        Test.startTest();
+        Contact tPass = new Contact(Email='test@gmail.com', LastName='Fer');
+
+        insert(tPass);
+        Integer sentNum = Limits.getEmailInvocations();
+
+        System.assertEquals(sentNum, 1);
+        Test.stopTest();
+    }
+
+    @isTest
+    static void testContactTriggerOnMultableInsertPass(){
+        Test.startTest();
+        Integer numSuppliers = 10;
+        List<Contact> supplierPassMockData = new List<Contact>();
+
+        for(Integer i = 0; i < numSuppliers; i++){
+
+            Contact tPass = new Contact(Email='test@gmail.com', LastName='Fer');
+            supplierPassMockData.add(tPass);
+        }
+
+        insert(supplierPassMockData);
+        Integer sentNum = Limits.getEmailInvocations();
+
+        System.assertEquals(sentNum, 10);
+        Test.stopTest();
+    }
+}

@@ -1,0 +1,25 @@
+trigger ContactTrigger on Contact (before insert, before update, before delete, after delete, after insert, after update, after undelete) {
+    ContactTriggerHandler cth = new ContactTriggerHandler();
+    switch on Trigger.operationType{
+
+         when BEFORE_INSERT {
+            //NA
+        }when BEFORE_UPDATE{
+            //NA
+        }when BEFORE_DELETE{
+            //NA
+        }when AFTER_INSERT{
+            cth.sendEmails(Trigger.New);
+        }when AFTER_DELETE{
+            //NA
+		}when AFTER_UNDELETE{
+            //NA
+        }when AFTER_UPDATE{
+            //NA
+        } when else {
+			UnexpectedException e = new UnexpectedException();
+			e.setMessage('>> Invalid OperationType - ContactTrigger');
+			throw e;
+        }
+    }
+}

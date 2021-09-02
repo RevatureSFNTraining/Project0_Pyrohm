@@ -1,0 +1,28 @@
+trigger SupplierTrigger on Supplier__c (before insert, before update, before delete, after delete, after insert, after update, after undelete) {
+    SupplierTriggerHandler sth = new SupplierTriggerHandler();
+
+    switch on Trigger.operationType{
+
+         when BEFORE_INSERT {
+			//List<Supplier__c> sList = new List<Supplier__c>([SELECT Supplier_Name__c FROM Supplier__c WHERE Id IN: Trigger.New]);
+        	//sth.checkSuppliers(slist);
+        	sth.checkSuppliers(Trigger.New);
+         }when BEFORE_UPDATE{
+            //NA
+        }when BEFORE_DELETE{
+            //NA
+        }when AFTER_INSERT{
+            //NA
+        }when AFTER_DELETE{
+            //NA
+		}when AFTER_UNDELETE{
+            //NA
+        }when AFTER_UPDATE{
+            //NA
+        } when else {
+			UnexpectedException e = new UnexpectedException();
+			e.setMessage('>> Invalid OperationType - SupplierTrigger');
+			throw e;
+        }
+    }
+}

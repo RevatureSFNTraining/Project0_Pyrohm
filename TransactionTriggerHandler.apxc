@@ -1,0 +1,24 @@
+public class TransactionTriggerHandler {
+
+    public void checkCards(List<Transaction__c> tList){
+        System.debug(tList.size());
+        Integer num = 1;
+        for(Transaction__c t: tList){
+            String s = t.Card__c;
+            if(!this.isCard(s)){
+                if(t.Card__c != null){
+                t.addError('card error on '  + t.Id);
+                }
+            }
+            num++;
+        }
+    }
+
+    public Boolean isCard(String s){
+        if((s.length() == 16) && (s.containsOnly('0123456789'))){
+            return true;
+        } else {
+        return false;
+        }
+    }
+}

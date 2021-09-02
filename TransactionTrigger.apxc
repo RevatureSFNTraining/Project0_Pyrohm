@@ -1,0 +1,24 @@
+trigger TransactionTrigger on Transaction__c (before insert, before update, before delete, after delete, after insert, after update, after undelete) {
+	TransactionTriggerHandler ttc = new TransactionTriggerHandler();
+    switch on Trigger.operationType{
+         when BEFORE_INSERT {
+             ttc.checkCards(Trigger.New);
+        }when BEFORE_UPDATE{
+			//NA
+        }when BEFORE_DELETE{
+            //NA
+        }when AFTER_INSERT{
+            //NA
+        }when AFTER_DELETE{
+            //NA
+        }when AFTER_UNDELETE{
+            //NA
+        }when AFTER_UPDATE{
+            //NA
+        } when else {
+			UnexpectedException e = new UnexpectedException();
+			e.setMessage('>> Invalid OperationType - TransactionTrigger');
+			throw e;
+        }
+    }
+}

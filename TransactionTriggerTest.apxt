@@ -1,0 +1,85 @@
+@isTest
+public with sharing class TransactionTriggerTest {
+    @TestSetup
+    static void createMockTransactions(){
+
+        Integer numTransactions = 100;
+        List<Transaction__c> transactionPassMockData = new List<Transaction__c>();
+        Worker__c worker3 = new Worker__c(Worker_ID__c='3333');
+        Contact contactJon = new Contact(LastName='Jon', Email='test@gmail.com');
+        insert worker3;
+        insert contactJon;
+
+        for(Integer i = 0; i < numTransactions; i++){
+            String passCardNum = ('12004034' + i + '98075543').substring(0,16);
+
+            Transaction__c tPass = new Transaction__c(Card__c=passCardNum, Worker_ID__c=worker3.id, Contact_ID__c=contactJon.id);
+            transactionPassMockData.add(tPass);
+        }
+        Transaction__c singlePass = new Transaction__c(Card__c='9123112321233123', Worker_ID__c=worker3.id, Contact_ID__c=contactJon.id);
+
+        insert transactionPassMockData;
+        insert singlePass;
+    }
+
+	@isTest
+    static void testTransactionTriggerOnMultableInsertPass(){
+        Test.startTest();
+        List<Transaction__c> returnQurey = [SELECT id, Card__c FROM Transaction__c WHERE Card__c LIKE'12004034%'];
+        System.debug('YEAHBOI ' + returnQurey.size());
+        System.assertEquals(100, returnQurey.size());
+        Test.stopTest();
+    }
+
+    @isTest
+    static void testTransactionTriggerOnSingleInsertPass(){
+        Test.startTest();
+        Transaction__c returnQurey = [SELECT id, Card__c FROM Transaction__c WHERE Card__c='9123112321233123'];
+        System.assertEquals(true, (returnQurey != null));
+        Test.stopTest();
+    }
+
+
+
+    @isTest
+    static void testTransactionTriggerOnMultableInsertFail(){
+        Test.startTest();
+        List<Transaction__c> transactionFailMockData = new List<Transaction__c>();
+        Integer numTransactions = 100;
+		Contact contactJon = new Contact(LastName='Jon', Email='test@gmail.com');
+        Worker__c worker3 = new Worker__c(Worker_ID__c='3333');
+        insert worker3;
+        insert contactJon;
+
+        for(Integer i = 0; i < numTransactions; i++){
+            String failCardNum = ('ABCDEFGH' + i + '98075543').substring(0,16);
+
+            Transaction__c tFail = new Transaction__c(Card__c=failCardNum, Worker_ID__c=worker3.id, Contact_ID__c=contactJon.id);
+            transactionFailMockData.add(tFail);
+        }
+
+        List<Database.SaveResult> sList = Database.insert(transactionFailMockData, false);
+        Integer fails = 0;
+        for(Database.SaveResult s: sList){
+            if(!s.isSuccess()){
+                fails++;
+            }
+        }
+
+        System.assertEquals(100, fails);
+        Test.stopTest();
+    }
+
+    @isTest
+    static void testTransactionTriggerOnSingleInsertFail(){
+        Test.startTest();
+        Contact contactJon = new Contact(LastName='Jon', Email='test@gmail.com');
+        Worker__c worker3 = new Worker__c(Worker_ID__c='3333');
+        insert worker3;
+        insert contactJon;
+        Transaction__c singleFail = new Transaction__c(Card__c='JJ87', Worker_ID__c=worker3.id, Contact_ID__c=contactJon.id);
+        Database.SaveResult s = Database.insert(singleFail, false);
+        System.assertNotEquals(true, s.isSuccess());
+        Test.stopTest();
+    }
+}

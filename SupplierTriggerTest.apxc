@@ -1,0 +1,64 @@
+@isTest
+public class SupplierTriggerTest {
+
+    @TestSetup
+    static void createMockSuppliers(){
+
+        Integer numSuppliers = 101;
+        List<Supplier__c> supplierPassMockData = new List<Supplier__c>();
+
+        for(Integer i = 0; i < numSuppliers; i++){
+
+            Supplier__c tPass = new Supplier__c(Supplier_Name__c=('NMP-' + i));
+            supplierPassMockData.add(tPass);
+        }
+        Supplier__c singlePass = new Supplier__c(Supplier_Name__c='N- Mel');
+
+        Supplier__c tFail = new Supplier__c(Supplier_Name__c='NMF-1');
+
+        insert tFail;
+        insert supplierPassMockData;
+        insert singlePass;
+    }
+
+    @isTest
+    static void testTransactionTriggerOnMultableInsertPass(){
+        Test.startTest();
+        List<Supplier__c> returnQurey = [SELECT id, Supplier_Name__c FROM Supplier__c WHERE Supplier_Name__c LIKE'NMP-%'];
+
+        System.assertEquals(101, returnQurey.size());
+        Test.stopTest();
+    }
+
+    @isTest
+    static void testTransactionTriggerOnMultableInsertFail(){
+        Test.startTest();
+        Integer numSuppliers = 101;
+        List<Supplier__c> supplierFailMockData = new List<Supplier__c>();
+
+        for(Integer i = 0; i < numSuppliers; i++){
+
+            Supplier__c tFail = new Supplier__c(Supplier_Name__c='NMF-1');
+            supplierFailMockData.add(tFail);
+        }
+
+        List<Database.SaveResult> sList = Database.insert(supplierFailMockData, false);
+        Integer fails = 0;
+        for(Database.SaveResult s: sList){
+            if(!s.isSuccess()){
+                fails++;
+            }
+        }
+
+        System.assertEquals(numSuppliers, fails);
+        Test.stopTest();
+    }
+
+    @isTest
+    static void testTransactionTriggerOnSingleInsertPass(){
+        Test.startTest();
+        Supplier__c returnQurey = [SELECT id, Supplier_Name__c FROM Supplier__c WHERE Supplier_Name__c='N- Mel' LIMIT 1];
+        System.assertEquals(true, (returnQurey != null));
+        Test.stopTest();
+    }
+}

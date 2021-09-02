@@ -1,0 +1,24 @@
+public class SupplierTriggerHandler {
+
+    public void checkSuppliers(List<Supplier__c> sList){
+        Set<String> nameSet = new Set<String>();
+        for(Supplier__c s: sList){
+            nameSet.add(s.Supplier_Name__c);
+        }
+        //Makes a set of all the names in the Trigger
+
+        Map<String, Supplier__c> dupeMap = new Map<String, Supplier__c>();
+        for(Supplier__c s: [SELECT Supplier_Name__c, id FROM Supplier__c WHERE Supplier_Name__c IN: nameSet]){
+            //For loop is made from any results in the query that have the same name as one in nameSet
+            //all of these dupes are put in a map
+            dupeMap.put(s.Supplier_Name__c, s);
+        }
+
+        for(Supplier__c s: sList){
+			Supplier__c dupe = dupeMap.get(s.Supplier_Name__c) ;
+            if(dupe != null){
+                s.addError('Same Supplier Name: ' + s.Supplier_Name__c);
+            }
+        }
+    }
+}
