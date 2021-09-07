@@ -1,4 +1,4 @@
-public class SendEmail {
+public class SendEmailTriggerHandler {
     public static void cancelledDelivery(List<Delivery__c> d) {
         //Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
         system.debug(d);
@@ -11,8 +11,7 @@ public class SendEmail {
         String[] toAddresses = new String[] {userEmail[0].email};
         mail.setToAddresses(toAddresses);
         mail.setSubject('Delivery Cancelled!');
-        mail.setPlainTextBody('We are emailing you to inform you the delivery' + d[0].id + 'has been cancelled, thanks.');
-        
+        mail.setPlainTextBody('We are emailing you to inform you the delivery ID:' + d[0].id + ' has been cancelled, thanks.');        
         Messaging.SendEmailResult[] results = Messaging.sendEmail(
                                      new Messaging.SingleEmailMessage[] { mail });
             
@@ -30,10 +29,6 @@ public class SendEmail {
         for (Messaging.SendEmailResult res : results) {
             if (res.isSuccess()) {
                 System.debug('Email sent successfully');
-            }
-            else {
-                sendResult = false;
-                System.debug('The following errors occurred: ' + res.getErrors());                 
             }
         }
         
