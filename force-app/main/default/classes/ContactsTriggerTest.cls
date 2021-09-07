@@ -1,12 +1,16 @@
 @isTest
-private class ContactTriggerTest {
+
+private class ContactsTriggerTest {
     @isTest static void singleTest() {
-        Contact c = new Contact(LastName = 'glennan');
+     	Contact c = new Contact(lastname = 'glennan', description = 'hello');
         insert c;
         
-        Contact c1.lastname = [select name from contact where lastname = 'glennan' limit 1];
-       	update c1; 
+        c.lastname = 'lennon';
+        update c;
         
-        system.debug(c1);
-    }
+        Contact x = [select description from contact where lastname = 'glennan'];
+       	System.debug(x);
+        System.debug(c);
+        System.assertEquals('Contact Updated by ' + userInfo.getUserEmail(), c.description);
+    }    
 }
